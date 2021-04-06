@@ -1,0 +1,168 @@
+<!-- ko if: initialized() && $data.elements.hasOwnProperty('newsletter-request-1-0-0') -->
+<div class="newsletter-request footer-newsletter">
+    <h3 data-bind="widgetLocaleText: 'newsletterTitle'"></h3>
+    <p data-bind="widgetLocaleText: 'newsletterDescription'"></p>
+
+    <!-- ko if: $data.user().readyToDisplay()  -->
+    <div class="footer-field-set">
+        <a href="#CC-footermodalpane" class="footer-button cc-button-primary" data-test="newsletter-sign-up"
+            data-bind="click: function() { return $data.elements['newsletter-request-1-0-0'].onClickRegister.bind($data.elements['newsletter-request-1-0-0'])($data.user()) }"
+            data-toggle="modal">
+            <span data-bind="widgetLocaleText: 'newsletterSignUpButtonNotLoggedIn'"></span>
+        </a>
+    </div>
+    <!-- /ko -->
+</div>
+
+<!-- Modal dialog for newsletter sign-up -->
+<!-- ko with: $data.elements['newsletter-request-1-0-0'] -->
+<div class="modal fade" id="CC-footermodalpane" data-test="newsletter-registration-modal-pane" tabindex="-1"
+    role="link">
+    <div class="modal-dialog cc-modal-dialog" id="CC-NewsletterSignupModal"
+        data-test="newsletter-registration-modal-dialog">
+        <div class="modal-content">
+            <div id="CC-newsletterSignupUserPane">
+                <div class="modal-header CC-header-modal-heading">
+                    <h3 style="text-align: center" data-bind="widgetLocaleText:'newsletterTitle'"></h3>
+                </div>
+                <div class="modal-body cc-modal-body">
+                    <div id="CC-messages-newsletter-registration" data-bind="visible: showErrorMessage">
+                        <div role="alert" class="text-danger cc-error-message" data-bind="text: modalMessageText"></div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap;" id="CC-newsletterRegistration"
+                        data-bind="with: $parent.user">
+
+                        <div style="width: 50%;height: 50%;">
+                            <label style="margin-bottom: 10%"
+                                    data-bind="widgetLocaleText:'What will I receive?'"></label>
+                                <div class="tooltip">
+                                    <span class="glyphicon glyphicon-question-sign"></span>
+                                    <span class="tooltiptext">We'll send you updates on new arrivals, inspiration,
+                                        offers &amp; promotional events.</span>
+                                </div>
+                            <div class="form-group row" style="margin-bottom: 9%">
+                                <div class="controls col-md-12">
+                                    <label class="control-label inline" for="CC-newsletterRegistration-firstname"
+                                        data-bind="widgetLocaleText:'firstNameText'"></label>
+                                    <span role="alert" class="text-danger"
+                                        id="CC-newsletterRegistration-firstname-error"
+                                        data-bind="validationMessage: firstName"></span>
+                                    <input type="text" class="col-md-5 form-control"
+                                        id="CC-newsletterRegistration-firstname" aria-required="true"
+                                        data-test="newsletter-registration-modal-firstname"
+                                        data-bind="validatableValue: firstName,
+                                                  widgetLocaleText : {value:'firstNameText', attr:'placeholder'},
+                                                  valueUpdate: 'afterkeydown',
+                                                  event: { keydown: function(data, event) { return $parent.onKeypressInField(data, event) } }"></input>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin-bottom: 9%">
+                                <div class="controls col-md-12">
+                                    <label class="control-label inline" for="CC-newsletterRegistration-lastname"
+                                        data-bind="widgetLocaleText:'lastNameText'"></label>
+                                    <span role="alert" class="text-danger" id="CC-newsletterRegistration-lastname-error"
+                                        data-bind="validationMessage: lastName"></span>
+                                    <input type="text" class="col-md-5 form-control"
+                                        id="CC-newsletterRegistration-lastname" aria-required="true"
+                                        data-test="newsletter-registration-modal-lastname"
+                                        data-bind="validatableValue: lastName,
+                                                  widgetLocaleText : {value:'lastNameText', attr:'placeholder'},
+                                                  valueUpdate: 'afterkeydown',
+                                                  event: { keydown: function(data, event) { return $parent.onKeypressInField(data, event) } }"></input>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin-bottom: 10%">
+                                <div class="controls col-md-12">
+                                    <label class="control-label inline" for="CC-newsletterRegistration-emailAddress"
+                                        data-bind="widgetLocaleText:'emailAddressText'"></label>
+                                    <span role="alert" class="text-danger"
+                                        id="CC-newsletterRegistration-emailAddress-error"
+                                        data-bind="validationMessage: emailAddress"></span>
+                                    <input type="email" class="col-md-5 form-control"
+                                        id="CC-newsletterRegistration-emailAddress" aria-required="true"
+                                        data-test="newsletter-registration-modal-email-address"
+                                        data-bind="validatableValue: emailAddress,
+                                                  widgetLocaleText : {value:'emailAddressText', attr:'placeholder'},
+                                                  valueUpdate: 'afterkeydown',
+                                                  event: { keydown: function(data, event) { return $parent.onKeypressInField(data, event) }, focus: function(data, event) { $parent.onEmailAddressFocused($data, event) }, blur: function(data, event) {$parent.onEmailAddressLostFocus($data, event) } }"></input>
+                                </div>
+                            </div>
+                            <div>
+                                We treat your personal data with care, view our <a
+                                    href="https://ccstore-test-zb1a.oracleoutsourcing.com/privacy"
+                                    target="_blank"><u>privacy
+                                        notice</u></a> here
+                            </div>
+                        </div>
+
+
+
+                        <div style="width:50%; height: 50%">
+                            <img src="/file/v839085486383886921/general/newsletter-sign-up-spring21.jpg"
+                                style="height: 100%; width: 100%; margin-left: 7px;margin-bottom: -13px">
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer CC-header-modal-footer">
+                    <button class="cc-button-primary" id="CC-newsletterRegistrationSubmit"
+                        data-test="newsletter-registration-modal-submit" data-bind="click: function(data, event) { onClickRegisterModalOk($parent.user()) },
+                                   widgetLocaleText: 'newsletterSignUpButtonLoggedIn',
+                                   event: {mousedown: onMouseDown, mouseup: onMouseUp}"></button>
+                    <button class="cc-button-secondary" id="CC-newsletterRegistrationCancel"
+                        data-test="newsletter-registration-modal-cancel" data-bind="click: function() { onClickRegisterModalCancel($parent.user()) },
+                                   widgetLocaleText: 'buttonCancel',
+                                   event: {mousedown: onMouseDown, mouseup: onMouseUp}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css" scoped>
+    .tooltip {
+        position: relative;
+        display: contents;
+        border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 40%;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 94%;
+        left: 13%;
+        margin-left: -60px;
+        transition: opacity .3s;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: 15px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
+<!-- /ko -->
+<!-- /ko -->
