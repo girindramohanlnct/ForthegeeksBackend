@@ -105,13 +105,15 @@ exports.getType = async (req, res, next) => {
 };
 
 exports.getContent = async (req, res, next) => {
-  // console.log("topics ",req.params.topic);
+  console.log("topics ",req.params.topic);
   try {
     let contents = await Post.find({
       subject: req.params.topic,
       previousPage: "NA",
     });
+    console.log(contents);
     if (!contents || contents === null) {
+      console.log("fetched................")
       return res.status(400).json({
         messege: "post is not fetched",
         status: false,
